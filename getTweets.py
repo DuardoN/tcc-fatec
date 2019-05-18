@@ -2,6 +2,7 @@ import requests
 import bs4
 from bs4 import BeautifulSoup
 from requests_oauthlib import OAuth1
+import csv
 
 auth_params = {
     'app_key':'API key',
@@ -22,13 +23,17 @@ auth = OAuth1 (
 url_rest = "https://api.twitter.com/1.1/search/tweets.json"
 
 # query used by get tweets
-q = ':(+%23sad+%23triste'
+q = ':('
 
 # count : no of tweets to be retrieved per one call and parameters according to twitter API
-params = {'q': q, 'count': 1, 'lang': 'pt',  'result_type': 'mixed'}
+params = {'q': q, 'count': 100, 'lang': 'pt',  'result_type': 'mixed'}
 results = requests.get(url_rest, params=params, auth=auth)
-
 tweets = results.json()
 
-messages = [BeautifulSoup(tweet['text'], 'html.parser').get_text() for tweet in tweets['statuses']]
-print(messages)
+# open csv for save tweets
+csvFile = open('ua.csv', 'w')
+csvWriter = csv.writer(csvFile)
+
+for tweet in tweets['statuses']:
+    # Write on csv
+    csvWriter.writerow([tweet['text'].encode('utf-8')])
