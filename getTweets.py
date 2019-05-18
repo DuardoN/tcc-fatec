@@ -4,8 +4,8 @@ from bs4 import BeautifulSoup
 from requests_oauthlib import OAuth1
 
 auth_params = {
-    'app_key':'API Key',
-    'app_secret':'API secret',
+    'app_key':'API key',
+    'app_secret':'API secret key',
     'oauth_token':'Access token',
     'oauth_token_secret':'Access token secret'
 }
@@ -21,14 +21,14 @@ auth = OAuth1 (
 # url according to twitter API
 url_rest = "https://api.twitter.com/1.1/search/tweets.json"
 
-# getting rid of retweets in the extraction results and filtering all replies to the tweet often uncessary for the analysis
-q = '%40amazonIN -filter:retweets -filter:replies' # Twitter handle of Amazon India
+# query used by get tweets
+q = ':(+%23sad+%23triste'
 
 # count : no of tweets to be retrieved per one call and parameters according to twitter API
-params = {'q': q, 'count': 2000, 'lang': 'en',  'result_type': 'recent'}
+params = {'q': q, 'count': 1, 'lang': 'pt',  'result_type': 'mixed'}
 results = requests.get(url_rest, params=params, auth=auth)
 
 tweets = results.json()
 
-messages = [BeautifulSoup(tweet['text'], 'html5lib').get_text() for tweet in tweets['statuses']]
+messages = [BeautifulSoup(tweet['text'], 'html.parser').get_text() for tweet in tweets['statuses']]
 print(messages)
