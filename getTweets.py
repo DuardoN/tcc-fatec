@@ -31,7 +31,7 @@ results = requests.get(url_rest, params=params, auth=auth)
 tweets = results.json()
 
 # open csv for save tweets
-csvFile = open('ua.csv', 'w')
+csvFile = open('tweets.csv', 'w')
 csvWriter = csv.writer(csvFile)
 
 for tweet in tweets['statuses']:
