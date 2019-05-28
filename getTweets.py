@@ -28,11 +28,9 @@ words = [
     ':(',
     'sad',
     'caralho',
-    'depressão',
     'decepcionado',
     'decepcionada',
     'insatisfeito',
-    'ódio',
     'cansada',
     'exausta',
     'cansado',
@@ -45,7 +43,6 @@ words = [
     'paz',
     ':)',
     'felicidade',
-    'união',
     'top',
     'topzera',
 ]
@@ -66,3 +63,5 @@ for word in words:
     for tweet in tweets['statuses']:
         # Write on csv
         csvWriter.writerow([tweet['text'].encode('utf-8')])
+
+print('Download tweets fineshed.')
