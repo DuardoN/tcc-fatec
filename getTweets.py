@@ -5,10 +5,10 @@ from requests_oauthlib import OAuth1
 import csv
 
 auth_params = {
-    'app_key':'API key',
-    'app_secret':'API secret key',
-    'oauth_token':'Access token',
-    'oauth_token_secret':'Access token secret'
+    'app_key':'XXXXXXXXXXXXXXXXXXXXXXXX',
+    'app_secret':'XXXXXXXXXXXXXXXXXXXXXXXX',
+    'oauth_token':'XXXXXXXXXXXXXXXXXXXXXXXX',
+    'oauth_token_secret':'XXXXXXXXXXXXXXXXXXXXXXXX'
 }
 
 # Creating an OAuth Client connection
