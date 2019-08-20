@@ -1,4 +1,5 @@
-# Crawly tweets
+# TCC FATEC
+This project is developmented by [Eduardo Neves](https://www.linkedin.com/in/eduardo-neves-087aa3124/)
 This crawly for created for my project tcc on college. The project is about sentiment analysis of data twitter.
 
 ## Installation

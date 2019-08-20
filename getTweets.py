@@ -12,10 +12,10 @@ from nltk.tokenize import TweetTokenizer
 import os
 
 auth_params = {
-    'app_key':'3F2xZFk4Q18GQRFBb7a5kbllR',
-    'app_secret':'xQus3Zcgc0XGvjLbvk17906B7NIV71AVZGljrhJDcBdFGaxGpI',
-    'oauth_token':'2610469802-LxN0hPl2ZBgTwxkLdfzf101rvtb5iwocz89FQL4',
-    'oauth_token_secret':'xcBWA4GgQtJiwEFeIFNIIT7IUsl09iJEB6xZiz3MGQ9tO'
+    'app_key':'XXXXXXXXXXXXXXXXXXXXXXXX',
+    'app_secret':'XXXXXXXXXXXXXXXXXXXXXXXX',
+    'oauth_token':'XXXXXXXXXXXXXXXXXXXXXXXX',
+    'oauth_token_secret':'XXXXXXXXXXXXXXXXXXXXXXXX'
 }
 
 # Creating an OAuth Client connection
