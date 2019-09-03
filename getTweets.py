@@ -80,51 +80,52 @@ def word_counts(text, words):
 
 for word in words:
     # count : no of tweets to be retrieved per one call and parameters according to twitter API
-    params = {'q': word['word'], 'count': 100, 'lang': lang,  'result_type': 'mixed'}
+    params = {'q': word['word'], 'exclude': 'retweets', 'count': 100, 'lang': lang,  'result_type': 'mixed'}
     print('Query for: %s' % word['word'])
 
     results = requests.get(url_rest, params=params, auth=auth)
     tweets = results.json()
 
     for tweet in tweets['statuses']:
-        tweet['text'] = re.sub("\n","",tweet['text'])
-        tweet['text'] = re.sub("'",'"',tweet['text'])
-        
-        # Pattern words.  You can change
-        words_counted = word_counts(
-            tweet['text'],
-            [
-                'bad',
-                'triste',
-                'solitário',
-                'depressivo',
-                'tristeza',
-                'repudio',
-                ':(',
-                'sad',
-                'caralho',
-                'caralho',
-                'decepcionado',
-                'decepcionada',
-                'insatisfeito',
-                'cansada',
-                'exausta',
-                'cansado',
-                'exausto',
-                'feliz',
-                'alegre',
-                'sorrindo',
-                'apaixonado',
-                'apaixonada',
-                ':)',
-                'felicidade',
-                'top',
-                'topzera'
-            ]
-        )
-        list_to_string = ' ,'.join(str(e) for e in words_counted)
-        tweet_normalized = "'" + tweet['text'] + "', " + list_to_string + ", " + str(word['value'])
-        # Write on csv
-        csv_writer.writerow([tweet_normalized])
+        if tweet['in_reply_to_status_id'] == None:
+            tweet['text'] = re.sub("\n","",tweet['text'])
+            tweet['text'] = re.sub("'",'"',tweet['text'])
+            
+            # Pattern words.  You can change
+            words_counted = word_counts(
+                tweet['text'],
+                [
+                    'bad',
+                    'triste',
+                    'solitário',
+                    'depressivo',
+                    'tristeza',
+                    'repudio',
+                    ':(',
+                    'sad',
+                    'caralho',
+                    'caralho',
+                    'decepcionado',
+                    'decepcionada',
+                    'insatisfeito',
+                    'cansada',
+                    'exausta',
+                    'cansado',
+                    'exausto',
+                    'feliz',
+                    'alegre',
+                    'sorrindo',
+                    'apaixonado',
+                    'apaixonada',
+                    ':)',
+                    'felicidade',
+                    'top',
+                    'topzera'
+                ]
+            )
+            list_to_string = ' ,'.join(str(e) for e in words_counted)
+            tweet_normalized = "'" + tweet['text'] + "', " + list_to_string + ", " + str(word['value'])
+            # Write on csv
+            csv_writer.writerow([tweet_normalized])
 
 print('Download tweets fineshed.')
