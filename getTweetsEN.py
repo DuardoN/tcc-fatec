@@ -29,33 +29,28 @@ auth = OAuth1 (
 # Words about negative/positive for query. You can change
 words = [
     {'word': 'bad', 'value': 0},
-    {'word': 'triste', 'value': 0},
-    {'word': 'tristeza', 'value': 0},
-    {'word': 'repudio', 'value': 0},
+    {'word': 'sad', 'value': 0},
+    {'word': 'sadness', 'value': 0},
+    {'word': 'repudiation', 'value': 0},
     {'word': ':(', 'value': 0},
     {'word': 'sad', 'value': 0},
-    {'word': 'caralho', 'value': 0},
-    {'word': 'caralho', 'value': 1},
-    {'word': 'decepcionado', 'value': 0},
-    {'word': 'decepcionada', 'value': 0},
+    {'word': 'fuck', 'value': 0},
+    {'word': 'fuck', 'value': 1},
+    {'word': 'disappointed', 'value': 0},
     {'word': 'insatisfeito', 'value': 0},
-    {'word': 'cansada', 'value': 0},
+    {'word': 'dissatisfied', 'value': 0},
     {'word': 'exausta', 'value': 0},
-    {'word': 'cansado', 'value': 0},
-    {'word': 'exausto', 'value': 0},
-    {'word': 'feliz', 'value': 1},
-    {'word': 'alegre', 'value': 1},
-    {'word': 'sorrindo', 'value': 1},
-    {'word': 'apaixonado', 'value': 1},
-    {'word': 'apaixonada', 'value': 1},
+    {'word': 'exhausted', 'value': 0},
+    {'word': 'happy', 'value': 1},
+    {'word': 'joyful', 'value': 1},
+    {'word': 'smile', 'value': 1},
+    {'word': 'in love', 'value': 1},
     {'word': ':)', 'value': 1},
-    {'word': 'felicidade', 'value': 1},
-    {'word': 'top', 'value': 1},
-    {'word': 'topzera', 'value': 1}
+    {'word': 'happiness', 'value': 1},
 ]
 
 # You can change language
-lang = 'pt'
+lang = 'en'
 
 # Create folder for save data
 try:
@@ -95,36 +90,29 @@ for word in words:
             words_counted = word_counts(
                 tweet['text'],
                 [
-                    'bad',
-                    'triste',
-                    'solitário',
-                    'depressivo',
-                    'tristeza',
-                    'repudio',
-                    ':(',
-                    'sad',
-                    'caralho',
-                    'caralho',
-                    'decepcionado',
-                    'decepcionada',
-                    'insatisfeito',
-                    'cansada',
-                    'exausta',
-                    'cansado',
-                    'exausto',
-                    'feliz',
-                    'alegre',
-                    'sorrindo',
-                    'apaixonado',
-                    'apaixonada',
-                    ':)',
-                    'felicidade',
-                    'top',
-                    'topzera'
+                   'bad',
+                   'sad',
+                   'sadness',
+                   'repudiation',
+                   ':(',
+                   'sad',
+                   'fuck',
+                   'fuck',
+                   'disappointed',
+                   'insatisfeito',
+                   'dissatisfied',
+                   'exausta',
+                   'exhausted',
+                   'happy',
+                   'joyful',
+                   'smile',
+                   'in love',
+                   ':)',
+                   'happiness',
                 ]
             )
             list_to_string = ' ,'.join(str(e) for e in words_counted)
-            tweet_normalized = "'" + tweet['text'] + "', " + list_to_string + ", " + str(word['value'])
+            tweet_normalized = list_to_string + ", " + str(word['value'])
             # Write on csv
             csv_writer.writerow([tweet_normalized])
 
