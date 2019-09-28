@@ -39,7 +39,6 @@ words = [
     {'word': 'disappointed', 'value': 0},
     {'word': 'insatisfeito', 'value': 0},
     {'word': 'dissatisfied', 'value': 0},
-    {'word': 'exausta', 'value': 0},
     {'word': 'exhausted', 'value': 0},
     {'word': 'happy', 'value': 1},
     {'word': 'joyful', 'value': 1},
@@ -75,13 +74,21 @@ def word_counts(text, words):
 
 for word in words:
     # count : no of tweets to be retrieved per one call and parameters according to twitter API
-    params = {'q': word['word'], 'exclude': 'retweets', 'count': 100, 'lang': lang,  'result_type': 'mixed'}
     print('Query for: %s' % word['word'])
 
-    results = requests.get(url_rest, params=params, auth=auth)
-    tweets = results.json()
+    params_mixed = {'q': word['word'], 'exclude': 'retweets', 'count': 100, 'lang': lang,  'result_type': 'mixed'}
+    params_recent = {'q': word['word'], 'exclude': 'retweets', 'count': 100, 'lang': lang,  'result_type': 'recent'}
+    params_popular = {'q': word['word'], 'exclude': 'retweets', 'count': 100, 'lang': lang,  'result_type': 'popular'}
 
-    for tweet in tweets['statuses']:
+    results_mixed = requests.get(url_rest, params=params_mixed, auth=auth)
+    results_recent = requests.get(url_rest, params=params_recent, auth=auth)
+    results_popular = requests.get(url_rest, params=params_popular, auth=auth)
+    
+    tweets_mixed = results_mixed.json()
+    tweets_recent = results_recent.json()
+    tweets_popular = results_popular.json()
+
+    for tweet in tweets_mixed['statuses']:
         if tweet['in_reply_to_status_id'] == None:
             tweet['text'] = re.sub("\n","",tweet['text'])
             tweet['text'] = re.sub("'",'"',tweet['text'])
@@ -101,7 +108,74 @@ for word in words:
                    'disappointed',
                    'insatisfeito',
                    'dissatisfied',
-                   'exausta',
+                   'exhausted',
+                   'happy',
+                   'joyful',
+                   'smile',
+                   'in love',
+                   ':)',
+                   'happiness',
+                ]
+            )
+            list_to_string = ' ,'.join(str(e) for e in words_counted)
+            tweet_normalized = list_to_string + ", " + str(word['value'])
+            # Write on csv
+            csv_writer.writerow([tweet_normalized])
+    
+    for tweet in tweets_recent['statuses']:
+        if tweet['in_reply_to_status_id'] == None:
+            tweet['text'] = re.sub("\n","",tweet['text'])
+            tweet['text'] = re.sub("'",'"',tweet['text'])
+            
+            # Pattern words.  You can change
+            words_counted = word_counts(
+                tweet['text'],
+                [
+                   'bad',
+                   'sad',
+                   'sadness',
+                   'repudiation',
+                   ':(',
+                   'sad',
+                   'fuck',
+                   'fuck',
+                   'disappointed',
+                   'insatisfeito',
+                   'dissatisfied',
+                   'exhausted',
+                   'happy',
+                   'joyful',
+                   'smile',
+                   'in love',
+                   ':)',
+                   'happiness',
+                ]
+            )
+            list_to_string = ' ,'.join(str(e) for e in words_counted)
+            tweet_normalized = list_to_string + ", " + str(word['value'])
+            # Write on csv
+            csv_writer.writerow([tweet_normalized])
+    
+    for tweet in tweets_popular['statuses']:
+        if tweet['in_reply_to_status_id'] == None:
+            tweet['text'] = re.sub("\n","",tweet['text'])
+            tweet['text'] = re.sub("'",'"',tweet['text'])
+            
+            # Pattern words.  You can change
+            words_counted = word_counts(
+                tweet['text'],
+                [
+                   'bad',
+                   'sad',
+                   'sadness',
+                   'repudiation',
+                   ':(',
+                   'sad',
+                   'fuck',
+                   'fuck',
+                   'disappointed',
+                   'insatisfeito',
+                   'dissatisfied',
                    'exhausted',
                    'happy',
                    'joyful',
